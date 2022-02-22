@@ -20,7 +20,7 @@ class Solution:
             size = len(q)
             for i in range(size):
                 node = q.pop(0)
-                if i < size-1:
+                if i < size-1:   # Most Important step
                     node.next = q[0]
                 if node.left:
                     q.append(node.left)
