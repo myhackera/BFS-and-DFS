@@ -1,0 +1,18 @@
+class Solution:
+    
+    #Function to return a list containing the DFS traversal of the graph.
+    def dfsOfGraph(self, V, adj):
+        
+        res = []
+        visited = set()
+        
+        def dfs(v, adj):
+            visited.add(v)
+            res.append(v)
+            for ele in adj[v]:
+                if not ele in visited:
+                    dfs(ele, adj)
+        
+        dfs(0, adj)
+        return res
+        
