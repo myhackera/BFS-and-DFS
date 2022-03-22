@@ -1,0 +1,32 @@
+#User function Template for python3
+
+
+class Solution:
+    
+    #Function to detect cycle in a directed graph.
+    def isCyclic(self, V, adj):
+        
+        visited = [False]*V
+        callstack = [False]*V
+       
+        def DFS(s):
+            nonlocal visited, callstack
+           
+            visited[s] = True
+            callstack[s] = True
+           
+            for u in adj[s]:
+                if not visited[u]:
+                    if DFS(u):
+                        return True
+                elif callstack[u]:
+                    return True
+                   
+            callstack[s] = False
+            return False
+       
+        for i in range(V):
+            if not visited[i]:
+                if DFS(i):
+                    return True
+        return False
