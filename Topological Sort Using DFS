@@ -1,21 +1,21 @@
 class Solution:
-    def findtopo(self, node, vis, st, adj):
-        
-        vis[node] = 1
-        for val in adj[node]:
-            if not vis[val]:
-                self.findtopo(val, vis, st, adj)
-        st.append(node)
-            
+    
     def topoSort(self, V, adj):
         
-        st = []
-        vis = [0]*(V)
+        vis = [0]*V
+        stack = []
+        
+        def dfs(node):
+            
+            vis[node] = 1
+            for neighbour in adj[node]:
+                if not vis[neighbour]:
+                    dfs(neighbour)
+            stack.append(node)
+            
+        
         for i in range(V):
             if not vis[i]:
-                self.findtopo(i, vis, st, adj)
+                dfs(i)
         
-        topo = []
-        while st:
-            topo.append(st.pop())
-        return topo
+        return stack[::-1]
