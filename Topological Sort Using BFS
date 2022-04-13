@@ -1,0 +1,35 @@
+class Solution:
+    
+    # 3 steps solution 
+            
+    def topoSort(self, V, adj):
+        
+        # indegree of each vertex
+        indegree = [0]*V
+        for i in range(V):
+            for j in adj[i]:
+                indegree[j] += 1 
+        
+        # Insert vertices which value in 0
+        queue = []
+        for i in range(V):
+            if indegree[i] == 0:
+                queue.append(i)
+                
+        cnt = 0
+        topOrder = []
+        
+        # Iterate in queue and decrease the indegree of neigbour of vertices
+        while queue:
+            temp = queue.pop(0)
+            topOrder.append(temp)
+            for neighbour in adj[temp]:
+                indegree[neighbour] -= 1 
+                if indegree[neighbour] == 0:
+                    queue.append(neighbour)
+            cnt += 1 
+            
+        return topOrder
+        
+        
+# if cnt != n means there is cycle in graoh else topolgical cycle applies here
