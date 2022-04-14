@@ -1,0 +1,33 @@
+class Solution:
+    def dfs(self, node, adj, color):
+        
+        q = []
+        q.append(node)
+        color[node] = 1
+        
+        while q:
+            tmp = q.pop(0)
+            for neighbour in adj[tmp]:
+                if color[neighbour] == -1:
+                    color[neighbour] = 1-color[tmp]
+                    q.append(neighbour)
+                elif color[neighbour] == color[tmp]:
+                    return False
+        return True
+                 
+                    
+        
+    
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        
+        adj = {}
+        for i in range(len(graph)):
+            adj[i] = graph[i]
+            
+        color = [-1]*len(graph)
+        
+        for i in range(len(graph)):
+            if color[i] == -1:
+                if not self.dfs(i, adj, color):
+                    return False
+        return True
