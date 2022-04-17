@@ -1,0 +1,19 @@
+from heapq import *
+class Solution:
+    
+    def dijkstra(self, N, m, s):
+        
+        heap = []
+        heappush(heap, (0, s))
+        dist = [float('inf') for _ in range(N)]
+        dist[s] = 0
+        
+        while heap:
+        
+            (d, node) = heappop(heap)
+            for (child, c) in m[node]:
+                if dist[child] > (c+d):
+                    dist[child] = c+d
+                    heappush(heap, (dist[child], child))
+                    
+        return dist
