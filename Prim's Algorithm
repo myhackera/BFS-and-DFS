@@ -1,0 +1,32 @@
+import sys
+class Solution:
+   
+    def spanningTree(self, V, adj):
+        
+        key = [float('inf')]*V
+        parent = [None]*V
+        mstSet = [False]*V
+        
+        key[0] = 0
+        parent[0] = -1
+        
+        for i in range(V-1):
+            
+            mini = sys.maxsize
+            u = None
+            
+            for v in range(V):
+                if mstSet[v] == False and key[v] < mini:
+                    mini = key[v]
+                    u = v
+            
+            mstSet[u] = True
+            
+            for it in adj[u]:
+                ele = it[0]
+                distance = it[1]
+                if mstSet[ele] == False and key[ele] > distance:
+                    key[ele] = distance
+                    parent[ele] = u
+            
+        return sum(key)
