@@ -1,0 +1,24 @@
+class Solution:
+    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        
+        n = len(graph)
+        d = {}
+        for i in range(n):
+            d[i] = graph[i]
+            
+        ret = []
+        path = [0]
+        
+        def dfs(source):
+            
+            if source == n-1:
+                ret.append(path.copy())
+                return
+           
+            for neighbour in d[source]:
+                path.append(neighbour)
+                dfs(neighbour)
+                path.pop()
+        
+        dfs(0)
+        return ret
