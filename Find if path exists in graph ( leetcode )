@@ -17,18 +17,18 @@ class Solution:
                 else:
                     d[v].append(u)
         
+        vis = [0]*n
         
         def dfs(source, dest, d, vis):
             
             if source == dest:
                 return True
-            if source in vis:
-                return False
-            vis.add(source)
+            vis[source] = 1
             
             for neighbour in d[source]:
-                if dfs(neighbour, dest, d, vis): return True
+                if not vis[neighbour]:
+                    if dfs(neighbour, dest, d, vis): return True
                     
             return False
             
-        return dfs(source, destination, d, set())
+        return dfs(source, destination, d, vis)
