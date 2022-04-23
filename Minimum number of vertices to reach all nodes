@@ -1,0 +1,35 @@
+'''
+Idea : Here idea is track of all the vertices from which we start traversing, and if we found vertex which is already in result set and reached by other vertex then we 
+will remove it from result set beacuse vertex and all the vertices that can reached from that vertex can also be reached from other vertex.
+'''
+
+class Solution:
+    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+        
+        vis = [0]*n
+        res = set()
+        adj = {}
+        
+        for val in edges:
+            try:
+                adj[val[0]].append(val[1])
+            except:
+                adj[val[0]] = [val[1]]
+        
+        
+        def dfs(node):
+            vis[node] = 1
+            if node in adj:
+                for neighbour in adj[node]:
+                    if not vis[neighbour]:
+                        dfs(neighbour)
+                    elif neighbour in res:
+                        res.remove(neighbour)
+        
+        for i in range(n):
+            if not vis[i]:
+                dfs(i)
+                res.add(i)
+        
+      
+        return list(res)
