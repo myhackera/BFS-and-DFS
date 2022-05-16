@@ -18,7 +18,7 @@ class Solution:
             tmp = queue.pop(0)
             for neighbour in adj[tmp]:
                 indegree[neighbour] -= 1
-                if indegree[neighbour] == 0:
+                if indegree[neighbour] == 0:  # if indegree[neighbour] != 0 it means another node is pointing to neighbour
                     queue.append(neighbour)
             cnt += 1 
         
