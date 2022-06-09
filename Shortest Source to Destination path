@@ -1,0 +1,25 @@
+from collections import deque
+
+class Solution:
+    def shortestDistance(self,N,M,A,X,Y):
+        
+        if A[0][0] == 0:
+            return -1
+            
+        queue = deque()  
+        visited = set()
+        queue.append([0, 0, 0])
+        dirs = [(-1, 0), (0, -1), (0, 1), (1, 0)]
+        
+        while queue:
+            a, b, c = queue.popleft()
+            if a == X and b == Y:
+                return c
+            for dr,dc in dirs:
+                row, col = a+dr, b+dc
+                if 0<=row<N and 0<=col<M and (row, col) not in visited and A[row][col] == 1:
+                    visited.add((row, col))
+                    queue.append([row, col, c+1])
+                    
+        return -1
+        
