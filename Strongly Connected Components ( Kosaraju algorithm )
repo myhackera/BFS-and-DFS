@@ -1,0 +1,51 @@
+from collections import defaultdict
+
+def topoSort(node, visited, stack, d):
+    visited[node] = True
+    if node in d:
+        for nei in d[node]:
+            if not visited[nei]:
+                topoSort(nei, visited, stack, d)
+    stack.append(node)
+
+def getTranspose(edges):
+    g = {}
+    for e1, e2 in edges:
+        try:
+            g[e2].append(e1)
+        except:
+            g[e2] = [e1]
+    return g
+    
+def dfs(node, visited, g, ans):
+    visited[node] = True
+    ans.append(node)
+    if node in g:
+        for nei in g[node]:
+            if not visited[nei]:
+                dfs(nei, visited, g, ans)
+    
+def stronglyConnectedComponents(n, edges):
+    d = defaultdict()
+    for e1, e2 in edges:
+        if e1 in d:
+            d[e1].append(e2)
+        else:
+            d[e1] = [e2]
+    
+    visited = [False]*n
+    stack = []
+    for i in range(n):
+        if not visited[i]:
+            topoSort(i, visited, stack, d)
+    g = getTranspose(edges)
+    visited = [False]*n
+    res = []
+    while stack:
+        node = stack.pop()
+        ans = []
+        if not visited[node]:
+            dfs(node, visited, g, ans)
+            res.append(ans)
+    return res
+    
