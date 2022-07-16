@@ -1,0 +1,23 @@
+from collections import deque
+class Solution:
+	def minStepToReachTarget(self, KnightPos, TargetPos, N):
+	    
+	    q = deque()
+	    q.append([KnightPos[0]-1, KnightPos[1]-1, 0])
+	    
+	    dx = [2, 2, -2, -2, 1, 1, -1, -1]
+        dy = [1, -1, 1, -1, 2, -2, 2, -2]
+	    vis = [[False for i in range(N)] for i in range(N)]
+	    vis[KnightPos[0]-1][KnightPos[1]-1] = True
+	    
+	    while q:
+	        x, y, dist = q.popleft()
+	        if x == TargetPos[0]-1 and y == TargetPos[1]-1:
+	            return dist
+	        for i in range(8):
+	            new_x = x + dx[i]
+	            new_y = y + dy[i]
+	            if new_x >= 0 and new_x <= N-1 and new_y >= 0 and new_y <= N-1 and not vis[new_x][new_y]:
+	                vis[new_x][new_y] = True
+	                q.append([new_x, new_y, dist+1])
+	    
