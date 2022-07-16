@@ -1,0 +1,22 @@
+from collections import deque
+class Solution:
+    
+    #Function to count paths between two vertices in a directed graph.
+    def countPaths(self, V, adj, source, destination):
+        
+        d = {}
+        for i in range(V):
+            d[i] = adj[i]
+        
+        q = deque()
+        q.append(source)
+        count = 0
+        
+        while q:
+            node = q.popleft()
+            if node == destination:
+                count += 1
+            for nei in d[node]:
+                q.append(nei)
+        
+        return count
