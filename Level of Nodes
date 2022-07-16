@@ -1,0 +1,30 @@
+from collections import deque
+class Solution:
+    
+    #Function to find the level of node X.
+    def nodeLevel(self, V, adj, X):
+        
+        d = {}
+        for i in range(V):
+            d[i] = adj[i]
+        
+        vis = [0]*V
+        level = [-1]*V
+        level[0] = 0
+        vis[0] = 1
+        
+        q = deque()
+        q.append(0)
+        
+        while q:
+            node = q.popleft()
+            for nei in d[node]:
+                if not vis[nei]:
+                    q.append(nei)
+                    vis[nei] = 1
+                    level[nei] = level[node] + 1
+        
+        try:
+            return level[X]
+        except:
+            return -1
