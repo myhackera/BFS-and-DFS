@@ -1,0 +1,41 @@
+class Solution:
+    def fill(self, n, m, mat):
+        
+        def dfs(mat, i, j):
+            
+            if i < 0 or j < 0 or i > n-1 or j > m-1: return 
+            if mat[i][j] != "O": return 
+            mat[i][j] = "#"
+            
+            dfs(mat, i+1, j)
+            dfs(mat, i-1, j)
+            dfs(mat, i, j+1)
+            dfs(mat, i, j-1)
+        
+        if n == 0:
+            return mat
+            
+        for i in range(n):
+            j = 0
+            if mat[i][j] == "O":
+                dfs(mat, i, j)
+            j = m-1
+            if mat[i][j] == "O":
+                dfs(mat, i, j)
+                
+        for j in range(m):
+            i = 0
+            if mat[i][j] == "O":
+                dfs(mat, i, j)
+            i = n-1
+            if mat[i][j]:
+                dfs(mat, i, j)
+                
+        for i in range(n):
+            for j in range(m):
+                if mat[i][j] == "#":
+                    mat[i][j] = "O"
+                elif mat[i][j] == "O":
+                    mat[i][j] = "X"
+                    
+        return mat
